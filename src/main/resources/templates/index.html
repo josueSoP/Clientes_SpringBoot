@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      
+    <head>
+        <title>Inicio</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+        <header th:replace="Plantillas/plantilla :: header"></header> <!--Encabezado dinamico desde plantilla-->
+        <a sec:authotize="hasRole('ROLE_ADMIN')" th:href="@{/agregar}">[[#{persona.crear}]]</a>        
+        <a th:href="@{/agregar}">[[#{persona.crear}]]</a>
+        <br/><br/>
+        <div th:if="${personas != null and !personas.empty}"><!---->
+            <table border = "1">
+                <tr>
+                    <th>[[#{persona.nombre}]]</th>
+                    <th>[[#{persona.apellido}]]</th>
+                    <th>[[#{persona.email}]]</th>
+                    <th>[[#{persona.telefono}]]</th>
+                    <th>[[#{accion.editar}]]</th>
+                    <th>[[#{accion.eliminar}]]</th>                    
+                </tr>
+                <tr th:each="persona : ${personas}">
+                    <td th:text="${persona.nombre}">Valor Nombre</td>
+                    <td th:text="${persona.apellido}">Valor Apellido</td>
+                    <td th:text="${persona.email}">Valor Email</td>
+                    <td th:text="${persona.telefono}">Valor Telefono</td>
+                    <td> <a th:href="@{/editar/} + ${persona.idPersona}" >[[#{accion.editar}]]</a> </td>
+                    <td> <a th:href="@{/eliminar/} + ${persona.idPersona}" >[[#{accion.eliminar}]]</a> </td>                     
+                </tr>
+            </table>
+        </div>
+        <div th:if="${personas == null or personas.empty}">
+            [[#{persona.lista-vacia}]]
+        </div>
+        
+        <footer th:replace="Plantillas/plantilla :: footer"></footer> <!--Encabezado dinamico desde plantilla-->
+        
+    </body>
+</html>

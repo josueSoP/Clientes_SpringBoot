@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Datos Usuario</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+        <header th:replace="Plantillas/plantilla :: header"></header> <!--Encabezado dinamico desde templates.Plantillas-->
+        
+        <h2>[[#{persona.formulario}]]</h2>
+        <a th:href="@{/}">[[#{accion.regresar}]]</a>
+        <br/>
+        <br/>
+        <form th:action="@{/guardar}" method="post" th:object="${persona}">
+            <input type="hidden" name="idPersona" th:field="*{idPersona}"/><!--guardar cambios al modificar: si tiene id hace update si no tiene id hace create-->
+            
+            <label for="nombre">[[#{persona.nombre}]]:</label>
+            <input type="text" nombre="nombre" th:field="*{nombre}"/>
+            <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" /> <!--validacion-->
+            
+            <br/><br/>
+            <label for="nombre">[[#{persona.apellido}]]:</label>
+            <input type="text" nombre="apellido" th:field="*{apellido}"/>
+            <span th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}" />           
+            
+            <br/><br/>
+            <label for="nombre">[[#{persona.email}]]:</label>
+            <input type="text" nombre="email" th:field="*{email}"/>
+            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" />            
+            
+            <br/><br/>
+            <label for="nombre">[[#{persona.telefono}]]:</label>
+            <input type="tel" nombre="telefono" th:field="*{telefono}"/>
+            
+            <br/><br/>
+            <input type="submit" name="guardar" th:value="#{accion.guardar}"/>
+        </form>
+        
+        <footer th:replace="Plantillas/plantilla :: footer"></footer> <!--Encabezado dinamico desde plantilla-->
+        
+    </body>
+</html>
